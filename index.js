@@ -1,62 +1,59 @@
-console.log("This is index.js");
-// Todos"
-// 1. Store all the data to the localStorage
-// 2. Give another column as an option to delete the book
-// 3. Add a scroll bar to the view
-
-// Constructor
-function Book(name, author, type) {
-    this.name = name;
-    this.author = author;
-    this.type = type;
-}
-
-// Display Constructor
-function Display() {
-
-}
-
-// Add methods to display prototype
-Display.prototype.add = function (book) {
-    console.log("Adding to UI");
-    tableBody = document.getElementById('tableBody');
-    let uiString = `<tr>
-                        <td>${book.name}</td>
-                        <td>${book.author}</td>
-                        <td>${book.type}</td>
-                    </tr>`;
-    tableBody.innerHTML += uiString;
-}
-
-// Implement the clear function
-Display.prototype.clear = function () {
-    let libraryForm = document.getElementById('libraryForm');
-    libraryForm.reset();
-}
-
-// Implement the validate function
-Display.prototype.validate = function (book) {
-    if (book.name.length < 2 || book.author.length < 2) {
-        return false
-    }
-    else {
-        return true;
+console.log('This is ES6 version of Project 2');
+class Book {
+    constructor(name, author, type) {
+        this.name = name;
+        this.author = author;
+        this.type = type;
     }
 }
-Display.prototype.show = function (type, displayMessage) {
-    let message = document.getElementById('message');
-    message.innerHTML = `<div class="alert alert-${type} alert-dismissible fade show" role="alert">
-                            <strong>Messge:</strong> ${displayMessage}
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">×</span>
-                            </button>
-                        </div>`;
-    setTimeout(function () {
-        message.innerHTML = ''
-    }, 2000);
 
+class Display {
+    add(book) {
+        console.log("Adding to UI");
+        let tableBody = document.getElementById('tableBody');
+        let uiString = `<tr>
+                            <td>${book.name}</td>
+                            <td>${book.author}</td>
+                            <td>${book.type}</td>
+                        </tr>`;
+        tableBody.innerHTML += uiString;
+    }
+
+    clear() {
+        let libraryForm = document.getElementById('libraryForm');
+        libraryForm.reset();
+    }
+
+    validate(book) {
+        if (book.name.length < 2 || book.author.length < 2) {
+            return false
+        }
+        else {
+            return true;
+        }
+    }
+
+    show(type, displayMessage) {
+        let message = document.getElementById('message');
+        let boldText;
+        if(type==='success'){
+            boldText = 'Success';
+        }
+        else{
+            boldText = 'Error!';
+        }
+        message.innerHTML = `<div class="alert alert-${type} alert-dismissible fade show" role="alert">
+                                <strong>${boldText}:</strong> ${displayMessage}
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">×</span>
+                                </button>
+                            </div>`;
+        setTimeout(function () {
+            message.innerHTML = ''
+        }, 5000);
+    
+    }
 }
-
 
 // Add submit event listener to libraryForm
 let libraryForm = document.getElementById('libraryForm');
